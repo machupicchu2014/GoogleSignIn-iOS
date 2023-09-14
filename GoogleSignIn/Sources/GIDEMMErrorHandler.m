@@ -106,8 +106,7 @@ typedef enum {
       }
     }
     if (!alertWindow) {
-      CGRect keyWindowBounds = CGRectIsEmpty(keyWindow.bounds) ?
-        keyWindow.bounds : [UIScreen mainScreen].bounds;
+      CGRect keyWindowBounds = keyWindow.bounds;
       alertWindow = [[UIWindow alloc] initWithFrame:keyWindowBounds];
     }
     alertWindow.backgroundColor = [UIColor clearColor];
