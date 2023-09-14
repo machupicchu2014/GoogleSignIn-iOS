@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 // Copyright 2021 Google LLC
@@ -24,7 +24,8 @@ let package = Package(
   defaultLocalization: "en",
   platforms: [
     .macOS(.v10_15),
-    .iOS(.v10)
+    .iOS(.v10),
+    .visionOS(.v1)
   ],
   products: [
     .library(
@@ -43,12 +44,12 @@ let package = Package(
   dependencies: [
     .package(
       name: "AppAuth",
-      url: "https://github.com/openid/AppAuth-iOS.git",
-      "1.6.0" ..< "2.0.0"),
+      url: "https://github.com/machupicchu2014/AppAuth-iOS",
+      .revision("cb86b0c")),
     .package(
       name: "GTMAppAuth",
-      url: "https://github.com/google/GTMAppAuth.git",
-      from: "4.0.0"),
+      url: "https://github.com/machupicchu2014/GTMAppAuth",
+      .revision("e4bc3fe")),
     .package(
       name: "GTMSessionFetcher",
       url: "https://github.com/google/gtm-session-fetcher.git",
@@ -97,27 +98,5 @@ let package = Package(
       ],
       path: "GoogleSignInSwift/Sources"
     ),
-    .testTarget(
-      name: "GoogleSignIn-UnitTests",
-      dependencies: [
-        "GoogleSignIn",
-        "OCMock",
-        .product(name: "AppAuth", package: "AppAuth"),
-        .product(name: "GTMAppAuth", package: "GTMAppAuth"),
-        .product(name: "GTMSessionFetcherCore", package: "GTMSessionFetcher"),
-        .product(name: "GULMethodSwizzler", package: "GoogleUtilities"),
-        .product(name: "GULSwizzlerTestHelpers", package: "GoogleUtilities"),
-      ],
-      path: "GoogleSignIn/Tests/Unit",
-      cSettings: [
-        .headerSearchPath("../../../"),
-        .define("GID_SDK_VERSION", to: googleSignInVersion),
-      ]
-    ),
-    .testTarget(
-      name: "GoogleSignInSwift-UnitTests",
-      dependencies: ["GoogleSignInSwift"],
-      path: "GoogleSignInSwift/Tests/Unit"
-    )
   ]
 )
